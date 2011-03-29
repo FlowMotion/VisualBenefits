@@ -3,38 +3,24 @@
   <head>
     <meta charset="utf-8">
     <title>Visualising Benefits</title>
-    <style type="text/css">
-      .center {
-      margin:auto;
-      width:50%;
-      text-align:center;
-      }
-
-      div.showCard {
-      border-width:5px;
-      border-style:solid;
-      border-color:black;
-      text-align:center;
-      display:none;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="VisualBenefits.css" />
+    <script src="jquery-1.5.1.js"></script>
+    <script type="text/javascript" src="VisualBenefits.js"></script>
   </head>
   <body>
-    <script src="jquery-1.5.1.js"></script>
-    <script type="text/javascript" src="script.js"></script>
     <section>
       <div class="center">Visualising Benefits</div>
     </section>
     <section>
       <div class="center">
-	<form id="cardEntryForm">
-	  Description:<input id="cardDescription" /> Value:<input id="benefitValue" /> <button id="enterButton" type="submit">Enter</button>
+	<form class="fms-cardEntryForm">
+	  Description:<input class="fms-cardDescription" /> Value:<input class="fms-benefitValue" /> <button class="fms-enterButton" type="submit">Enter</button>
 	</form>
       </div>
     </section>
     <section>
-      <div id="cardWall">
-	<div id="card" />
+      <div class="fms-cardWall">
+        <div class="fms-card" />
       </div>
     </section>
   </body>

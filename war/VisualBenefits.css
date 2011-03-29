@@ -1,0 +1,13 @@
+.center {
+  margin:auto;
+  width:50%;
+  text-align:center;
+}
+
+div.showCard {
+  border-width:5px;
+  border-style:solid;
+  border-color:black;
+  text-align:center;
+  display:none;
+}
