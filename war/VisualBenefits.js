@@ -12,14 +12,22 @@ var flomo = {};
         cardWall: ".fms-cardWall"
     };
 
+    var cardTemplate;
     
+    function init(that) {
+        // TODO: cardTemplate should probably be on the that
+        cardTemplate = $(selectors.cardTemplate);        
+        $(selectors.cardEntryForm).submit(that.createCard);
+        $(selectors.descInput).focus();
+    }
     
-    flomo.createCard = function () {
+    function createCard() {
+        // TODO: instead of pulling out interesting DOM elements each time we should do it on init and put it on the that
         var cardDescription = $(selectors.descInput).attr('value');
         var benefitValue = $(selectors.benefitVal).attr('value');
         
         if (cardDescription && benefitValue) {
-            var newCard = $(selectors.cardTemplate).clone();
+            var newCard = cardTemplate.clone();
             newCard
                 .html(cardDescription)
                 .addClass('showCard')
@@ -32,12 +40,15 @@ var flomo = {};
         return false;
     };
 
+    flomo.visualBenefits = function () {
+        that = {};
+        that.selectors = selectors;
+        that.createCard = createCard;
+        
+        init(that);
+        return that;
+    };
     
-    $(document).ready(
-        function(){
-            $(selectors.cardEntryForm).submit(flomo.createCard);
-            $(selectors.descInput).focus();
-        }
-    );
+    $(document).ready(flomo.visualBenefits);
 
 }) (jQuery);
