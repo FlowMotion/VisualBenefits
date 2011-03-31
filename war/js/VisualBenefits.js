@@ -5,46 +5,53 @@ var flomo = {};
 
 (function ($) {
     var selectors = {
-        cardEntryForm: ".fms-cardEntryForm", 
-        descInput: ".fms-cardDescription",
-        benefitVal: ".fms-benefitValue",
-        cardTemplate: ".fms-card",
-        cardWall: ".fms-cardWall"
+        cardEntryForm: '.fms-cardEntryForm', 
+        descInput: '.fms-cardDescription',
+        benefitVal: '.fms-benefitValue',
+        cardTemplate: '.fms-card',
+        cardWall: '.fms-cardWall',
+        button: '.fms-enterButton'
     };
-
-    var cardTemplate;
     
-    function init(that) {
-        // TODO: cardTemplate should probably be on the that
-        cardTemplate = $(selectors.cardTemplate);        
-        $(selectors.cardEntryForm).submit(that.createCard);
-        $(selectors.descInput).focus();
-    }
-    
-    function createCard() {
-        // TODO: instead of pulling out interesting DOM elements each time we should do it on init and put it on the that
-        var cardDescription = $(selectors.descInput).attr('value');
-        var benefitValue = $(selectors.benefitVal).attr('value');
+    function createCard(that) {
+        var cardDescription = that.descInput.attr('value');
+        var benefitValue = that.benefitVal.attr('value');
         
         if (cardDescription && benefitValue) {
-            var newCard = cardTemplate.clone();
+            var newCard = that.cardTemplate.clone();
             newCard
-                .html(cardDescription)
+                .append(cardDescription)
                 .addClass('showCard')
-                .appendTo(selectors.cardWall)
+                .appendTo(that.cardWall)
                 .fadeIn(1200);
 
-            $(selectors.cardEntryForm + '> :input').not(':submit').val('');
-            $(selectors.descInput).focus();
+            $('input', that.cardEntryForm).not(':submit').val('');
+            that.descInput.focus();
         }
         return false;
     };
 
+    function setupThat(that) {
+        // add properties
+        for (var key in selectors) {
+            // find all the DOM nodes specified in selectors and put them on the that
+            that[key] = $(selectors[key]);
+        }
+                
+        // add methods
+        that.createCard = function () {
+            return createCard(that);
+        };
+    }
+
+    function init(that) {
+        that.cardEntryForm.submit(that.createCard);
+        that.descInput.focus();
+    }
+    
     flomo.visualBenefits = function () {
         that = {};
-        that.selectors = selectors;
-        that.createCard = createCard;
-        
+        setupThat(that);
         init(that);
         return that;
     };

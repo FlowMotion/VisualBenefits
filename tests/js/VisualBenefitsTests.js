@@ -1,23 +1,21 @@
 $(document).ready(function(){
     
-module("Module Visual Benefits");
-
-test("Add a card", function() {
-    var visualBenefits = flomo.visualBenefits();
-    var desc = $(visualBenefits.selectors.descInput);
-    desc.val("first card");
-    var benefit = $(visualBenefits.selectors.benefitVal);
-    benefit.val("1");
-    var submit = $(".fms-enterButton");
-    submit.submit();
+    module("Module Visual Benefits");
     
-    equals($("div", $(visualBenefits.selectors.cardWall)).length, 2, "One card was added");
     
-    desc.val("second card");
-    benefit.val("2");
-    submit.submit();
-    equals($("div", $(visualBenefits.selectors.cardWall)).length, 3, "One card was added");
-});
+    test("Add a card", function() {
+        // TODO: this test is ripe for refactoring
+        var visualBenefits = flomo.visualBenefits();
+        visualBenefits.descInput.val("first card");
+        visualBenefits.benefitVal.val("1");
+        visualBenefits.button.submit();
+        equals($("div", visualBenefits.cardWall).length, 2, "One card was added");
+        
+        visualBenefits.descInput.val("second card");
+        visualBenefits.benefitVal.val("2");
+        visualBenefits.button.submit();
+        equals($("div", visualBenefits.cardWall).length, 3, "Second card was added");
+    });
 
 
 });
