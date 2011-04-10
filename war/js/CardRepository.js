@@ -1,37 +1,53 @@
-flomo.cardRepository = function() {
+(function() {
 
-    that = {};
+     function initCardRepository() {
 
-    that.cards = new Array();
+	 flomo.cardRepo.Repository = function() {
 
-    that.newCard = function(cardTitle, size) {
-	var card = {
-	    title: cardTitle,
-	    value: size
-	};
+	     that = {};
 
-	this.cards[card.title] = card;
+	     that.cards = new Array();
+	     that.currentId = 1;
 
-	return card;
-    };
+	     that.newCard = function(cardTitle, size) {
+		 var card = {
+		     title: cardTitle,
+		     value: parseInt(size),
+		     _id: this.currentId
+		 };
+		 card.id = function() {
+		     return card._id;
+		 };
 
-    that.findCard = function(title) {
-	for(var cardTitle in this.cards) {
-	    if (cardTitle == title) {
-		return this.cards[cardTitle];
-	    }
-	}
-	return null;
-    };
+		 this.cards[card.title] = card;
+		 this.currentId = this.currentId + 1;
 
-    that.totalValue = function() {
-	var result = 0;
-	for(var cardTitle in this.cards) {
-	    result = result + this.cards[cardTitle].value;
-	}
-	return result;
-    }
+		 return card;
+	     };
 
-    return that;
+	     that.findCard = function(title) {
+		 for(var cardTitle in this.cards) {
+		     if (cardTitle == title) {
+			 return this.cards[cardTitle];
+		     }
+		 }
+		 return null;
+	     };
 
-}
+	     that.totalValue = function() {
+		 var result = 0;
+		 for(var cardTitle in this.cards) {
+		     result = result + this.cards[cardTitle].value;
+		 }
+		 return result;
+	     };
+
+	     return that;
+
+	 };
+     }
+
+     flomo.cardRepo = {
+	 init: initCardRepository
+     };
+ }());

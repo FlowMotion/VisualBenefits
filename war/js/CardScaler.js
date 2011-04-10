@@ -1,27 +1,38 @@
-flomo.cardWall = function() {
-    return {
-	// should be resized relative to the size of current browser window.
-	width: 100,
-	height: 100
-    };
-}
+(function() {
+     function initCardScaler() {
 
-flomo.cardScaler = function(repository, wall) {
+	 flomo.cardWall = function() {
+	     return {
+		 // should be resized relative to the size of current browser window.
+		 width: 100,
+		 height: 100
+	     };
+	 };
 
-    that = {
-	cardRepository: repository,
-	cardWall: wall
-    };
+	 flomo.cardScaler.Scaler = function(repository, wall) {
 
-    that.determineCardSize = function(card) {
-	var totalValue = this.cardRepository.totalValue();
-	var ratio = card.value / totalValue;
-	return {
-	    width: (this.cardWall.width * ratio),
-	    height: (this.cardWall.height * ratio)
-	};
-    };
+	     that = {
+		 cardRepository: repository,
+		 cardWall: wall
+	     };
 
-    return that;
+	     that.determineCardSize = function(card) {
+		 var totalValue = this.cardRepository.totalValue();
+		 var ratio = card.value / totalValue;
+		 return {
+		     width: (this.cardWall.width * ratio),
+		     height: (this.cardWall.height * ratio)
+		 };
+	     };
 
-}
+	     return that;
+
+	 };
+
+     }
+
+     flomo.cardScaler = {
+	 init: initCardScaler
+     };
+
+ }());

@@ -1,14 +1,14 @@
 $(document).ready(
     function() {
-	module('simple', {
+	module('Scaling: simple', {
 		   setup: function() {
-		       this.repo = flomo.cardRepository();
+		       this.repo = flomo.cardRepo.Repository();
 
 		       this.cardWall =  flomo.cardWall();
 		       this.cardWall.width = 100;
 		       this.cardWall.height = 100;
 
-		       this.scaler = flomo.cardScaler(this.repo, this.cardWall);
+		       this.scaler = flomo.cardScaler.Scaler(this.repo, this.cardWall);
 		   }
 	       });
 
