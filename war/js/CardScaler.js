@@ -4,14 +4,14 @@
 	 flomo.cardWall = function() {
 	     return {
 		 // should be resized relative to the size of current browser window.
-		 width: 100,
-		 height: 100
+		 width: 640,
+		 height: 480
 	     };
 	 };
 
 	 flomo.cardScaler.Scaler = function(repository, wall) {
 
-	     that = {
+	     var that = {
 		 cardRepository: repository,
 		 cardWall: wall
 	     };

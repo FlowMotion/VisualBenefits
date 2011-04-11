@@ -4,7 +4,7 @@
 
 	 flomo.cardRepo.Repository = function() {
 
-	     that = {};
+	     var that = {};
 
 	     that.cards = new Array();
 	     that.currentId = 1;
@@ -33,6 +33,11 @@
 		 }
 		 return null;
 	     };
+
+	     that.listAll = function() {
+		 // FIXME: should clone the card array to be safe.
+		 return this.cards;
+	     }
 
 	     that.totalValue = function() {
 		 var result = 0;

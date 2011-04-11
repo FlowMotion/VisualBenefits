@@ -17,6 +17,7 @@ var flomo = {};
 	 };
 
 	 var cardRepository = flomo.cardRepo.Repository();
+	 var cardScaler = flomo.cardScaler.Scaler(cardRepository, flomo.cardWall());
 
 	 function createCard(that) {
              var cardDescription = that.descInput.attr('value');
@@ -26,12 +27,20 @@ var flomo = {};
 
 		 var aCard = cardRepository.newCard(cardDescription, benefitValue);
 
+		 resizeExistingCardsExcept(aCard);
+
+		 var cardDimension = cardScaler.determineCardSize(aCard);
+
 		 var newCard = that.cardTemplate.clone();
 		 newCard
                      .append(aCard.title + ':' + aCard.value)
                      .addClass('showCard')
+		     .addClass('fms-cardId-' + aCard.id())
                      .appendTo(that.cardWall)
+		     .width(cardDimension.width)
+		     .height(cardDimension.height)
                      .fadeIn(1200);
+
 
 		 $('input', that.cardEntryForm).not(':submit').val('');
 		 that.descInput.focus();
@@ -40,6 +49,21 @@ var flomo = {};
              }
              return false;
 	 };
+
+	 function resizeExistingCardsExcept(card) {
+	     var allCards = cardRepository.listAll();
+	     for(var i in allCards) {
+		 var eachCardInRepo = allCards[i];
+		 if (eachCardInRepo.id() != card.id()) {
+		     var dimension = cardScaler.determineCardSize(eachCardInRepo);
+		     $('.fms-cardId-' + eachCardInRepo.id())
+			 .animate({
+			     width: dimension.width,
+			     height: dimension.height
+			 }, 1200);
+		 }
+	     }
+	 }
 
 	 function setupThat(that) {
              // add properties
