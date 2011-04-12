@@ -42,6 +42,8 @@ var flomo = {};
                      .fadeIn(1200);
 
 
+		 that.cardWall.masonry();
+
 		 $('input', that.cardEntryForm).not(':submit').val('');
 		 that.descInput.focus();
 
@@ -57,10 +59,18 @@ var flomo = {};
 		 if (eachCardInRepo.id() != card.id()) {
 		     var dimension = cardScaler.determineCardSize(eachCardInRepo);
 		     $('.fms-cardId-' + eachCardInRepo.id())
-			 .animate({
-			     width: dimension.width,
-			     height: dimension.height
-			 }, 1200);
+			 .width(dimension.width)
+			 .height(dimension.height);
+		     
+		     // Note: animation seems to affect how masonry measure
+		     // sizes. It seems like as if it takes measurement
+		     // of boxes at the beginning of the resize
+		     // animation.
+		     // $('.fms-cardId-' + eachCardInRepo.id())
+		     // 	 .animate({
+		     // 	     width: dimension.width,
+		     // 	     height: dimension.height
+		     // 	 }, 1200);
 		 }
 	     }
 	 }
@@ -81,6 +91,21 @@ var flomo = {};
 	 function init(that) {
              that.cardEntryForm.submit(that.createCard);
              that.descInput.focus();
+
+	     setupMasonryLayout(that);
+	 }
+
+	 function setupMasonryLayout(visualBenefit) {
+	     $(visualBenefit.cardWall).masonry({
+		 columnWidth: 10,
+		 itemSelector: '.fms-card',
+		 animate: true,
+		 animationOptions: {
+		     duration: 1000,
+		     easing: 'linear',
+		     queue: false
+		 }
+	     });
 	 }
 
 	 flomo.visualBenefits.start = function () {
