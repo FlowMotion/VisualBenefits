@@ -100,7 +100,8 @@ var flomo = {};
 			 },
 			 "fms-benefitValue": {
 			     required: true,
-			     digits: true
+			     digits: true,
+			     min: 1
 			 }
 		     }
 		 });
