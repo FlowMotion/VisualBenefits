@@ -61,7 +61,7 @@ var flomo = {};
 		     $('.fms-cardId-' + eachCardInRepo.id())
 			 .width(dimension.width)
 			 .height(dimension.height);
-		     
+
 		     // Note: animation seems to affect how masonry measure
 		     // sizes. It seems like as if it takes measurement
 		     // of boxes at the beginning of the resize
@@ -89,7 +89,21 @@ var flomo = {};
 	 }
 
 	 function init(that) {
-             that.cardEntryForm.submit(that.createCard);
+	     that.cardEntryForm.validate(
+		 {
+		     submitHandler: that.createCard,
+		     onkeyup:false,
+		     onfocusout: false,
+		     rules: {
+			 "fms-cardDescription": {
+			     required: true
+			 },
+			 "fms-benefitValue": {
+			     required: true,
+			     digits: true
+			 }
+		     }
+		 });
              that.descInput.focus();
 
 	     setupMasonryLayout(that);

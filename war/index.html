@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="css/VisualBenefits.css" />
     <script src="lib/jquery-1.5.2.js"></script>
     <script src="lib/jquery.masonry.js"></script>
+    <script src="lib/jquery.validate.js"></script>
     <script type="text/javascript" src="js/VisualBenefits.js"></script>
     <script type="text/javascript" src="js/CardRepository.js"></script>
     <script type="text/javascript" src="js/CardScaler.js"></script>
@@ -18,8 +19,19 @@
     </section>
     <section>
       <div class="center">
-	<form class="fms-cardEntryForm">
-	  Description:<input class="fms-cardDescription" /> Value:<input class="fms-benefitValue" /> <button class="fms-enterButton" type="submit">Enter</button>
+	<form id="fms-cardEntryForm" class="cmxform fms-cardEntryForm">
+	  <fieldset>
+	    <legend>Enter Card Description and a Benefit Value</legend>
+	    <p>
+	      <label for="fms-cardDescription">Description</label>
+	      <em>*</em><input id="fms-cardDescription" name="fms-cardDescription" class="fms-cardDescription" />
+	    </p>
+	    <p>
+	      <label for="fms-benefitValue">Value</label>
+	      <em>*</em><input id="fms-benefitValue" name="fms-benefitValue" class="fms-benefitValue" />
+	    </p>
+	    <input class="fms-enterButton" type="submit" value="Enter"></input>
+	  </fieldset>
 	</form>
       </div>
     </section>
